@@ -1,0 +1,36 @@
+{
+
+  "manifest_version": 2,
+  "name": "No-link",
+  "version": "1.0",
+
+  "description": "Erase link formatting.",
+
+  "icons": {
+    "48": "icons/border-48.png"
+  },
+
+
+  "permissions": [
+    "tabs"
+  ],
+
+
+  "browser_action": {
+    "default_icon": "icons/border-48.png",
+    "default_title": "No-link"
+  },
+
+
+  "background": {
+    "scripts": ["background.js"]
+  },
+    
+  "content_scripts": [
+    {
+        "matches": ["<all_urls>"],   //"http://*/*", "https://*/*"],
+      "js": ["content.js"]
+    }
+  ]
+
+}
