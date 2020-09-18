@@ -12,9 +12,14 @@ function sendMessageToTabs(tabs) {
   }
 }
 
+// Chaging the icon
+function changeIcon() {
+      browser.browserAction.setIcon({path: "icons/broken-link-icon.png"});
+}
+
 browser.browserAction.onClicked.addListener(() => {
   browser.tabs.query({
     currentWindow: true,
     active: true
-  }).then(sendMessageToTabs).catch(onError);
+  }).then(sendMessageToTabs).then(changeIcon).catch(onError);
 });
