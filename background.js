@@ -17,6 +17,21 @@ function changeIcon() {
       browser.browserAction.setIcon({path: "icons/broken-link-icon.png"});
 }
 
+
+function setIcon(tabId, changeInfo, tabInfo) {
+    browser.browserAction.setIcon({path: "icons/link-icon.png"});
+}
+
+const filter = {
+    urls: ["https://*/*", "http://*/*"],
+    properties: ["status"]
+};
+
+// On active tab event to set icon
+browser.tabs.onUpdated.addListener(setIcon, filter);
+
+
+// On click event
 browser.browserAction.onClicked.addListener(() => {
   browser.tabs.query({
     currentWindow: true,

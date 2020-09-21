@@ -1,6 +1,5 @@
 "use strict";
 
-
 let erase = false;
 
 var sheet = (function() {
