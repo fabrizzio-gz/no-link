@@ -1,6 +1,6 @@
 "use strict";
 
-let erase = false;
+let erased = false;
 
 var sheet = (function() {
 	// Create the <style> tag
@@ -15,11 +15,12 @@ var sheet = (function() {
 
 // Add rule on button request
 browser.runtime.onMessage.addListener(request => {
-    if (erase) {
+    if (erased) {
         sheet.deleteRule(0);
-        erase = !erase;
+        erased = !erased;
     } else {
         sheet.insertRule("a, a:hover, a:focus, a:active, a:visited {text-decoration: none !important;color: inherit !important;  background-color: inherit !important; border-bottom: initial !important;}", 0);
-        erase = !erase;
+        erased = !erased;
     }
+    return Promise.resolve({erased});
 });

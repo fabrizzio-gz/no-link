@@ -8,7 +8,15 @@ function sendMessageToTabs(tabs) {
     browser.tabs.sendMessage(
       tab.id,
       {}
-    ).catch(onError);
+    ).then(response => {
+        
+        if (response.erased) {
+             browser.browserAction.setIcon({path: "icons/broken-link-icon.png"});
+        } else {
+            browser.browserAction.setIcon({path: "icons/link-icon.png"});
+        }
+
+    }).catch(onError);
   }
 }
 
@@ -36,5 +44,5 @@ browser.browserAction.onClicked.addListener(() => {
   browser.tabs.query({
     currentWindow: true,
     active: true
-  }).then(sendMessageToTabs).then(changeIcon).catch(onError);
+  }).then(sendMessageToTabs).catch(onError);
 });
