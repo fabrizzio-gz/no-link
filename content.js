@@ -15,6 +15,11 @@ var sheet = (function() {
 
 // Add rule on button request
 browser.runtime.onMessage.addListener(request => {
+    
+    if (!request.modify) {
+        return Promise.resolve({erased});
+    }
+    
     if (erased) {
         sheet.deleteRule(0);
         erased = !erased;
