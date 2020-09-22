@@ -20,6 +20,21 @@ function sendMessageToTabs(tabs) {
   }
 }
 
+function verifyTabStatus(activeInfo) {
+    browser.tabs.sendMessage(
+        activeInfo.tabId,
+        {}
+    ).then(response => {
+               
+        if (response.erased) {
+             browser.browserAction.setIcon({path: "icons/broken-link-icon.png"});
+        } else {
+            browser.browserAction.setIcon({path: "icons/link-icon.png"});
+        }
+
+    }).catch(onError);
+}
+
 // Chaging the icon
 function changeIcon() {
       browser.browserAction.setIcon({path: "icons/broken-link-icon.png"});
@@ -36,7 +51,8 @@ const filter = {
 };
 
 // On active tab event to set icon
-browser.tabs.onUpdated.addListener(setIcon, filter);
+//browser.tabs.onUpdated.addListener(setIcon, filter);
+browser.tabs.onActivated.addListener(verifyTabStatus);
 
 
 // On click event
