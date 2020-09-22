@@ -1,4 +1,5 @@
 function onError(error) {
+  browser.browserAction.setIcon({path: "icons/link-icon.png"});
   console.error(`Error: ${error}`);
 }
 
