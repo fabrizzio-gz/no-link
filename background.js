@@ -8,7 +8,7 @@ function sendMessageToTabs(tabs) {
   for (let tab of tabs) {
     browser.tabs.sendMessage(
       tab.id,
-        {modify: true}
+        {isQuery: false}
     ).then(response => {
         
         if (response.hideLinks) {
@@ -24,7 +24,7 @@ function sendMessageToTabs(tabs) {
 function verifyTabStatus(activeInfo) {
     browser.tabs.sendMessage(
         activeInfo.tabId,
-        {modify: false}
+        {isQuery: true}
     ).then(response => {
                
         if (response.hideLinks) {

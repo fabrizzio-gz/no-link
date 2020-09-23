@@ -21,10 +21,10 @@ let styleSheet = (function() {
 })();
 
 
-// Add rule on button request
+// 
 browser.runtime.onMessage.addListener(request => {
-    
-    if (!request.modify) {
+
+    if (request.isQuery) {
         return Promise.resolve({hideLinks});
     }
     
