@@ -1,3 +1,4 @@
+// Icons paths
 const showLinksIconPath = {
     path: 'icons/link-icon.png'
 };
@@ -10,6 +11,7 @@ function onError(error) {
     browser.browserAction.setIcon(showLinksIconPath);
 }
 
+
 function updateIcon(response) {
 
     if (response.hideLinks) {
@@ -20,22 +22,11 @@ function updateIcon(response) {
 
 }
 
-// Send message to active tabs to activate content JS
-function requestLinkFormatToggle(tabs) {
-    for (let tab of tabs) {
-        browser.tabs.sendMessage(
-            tab.id,
-            {isQuery: false}
-        ).then(updateIcon).catch(onError);
-    }
-}
-
 
 function verifyTabStatus(activeInfo) {
     
     browser.tabs.sendMessage(
-        activeInfo.tabId,
-        {
+        activeInfo.tabId, {
             isQuery: true
         }
     ).then(updateIcon).catch(onError);
@@ -43,11 +34,34 @@ function verifyTabStatus(activeInfo) {
 }
 
 
-// On active tab event to set icon
+function getActiveTab() {
+
+    browser.tabs.query({
+        currentWindow: true,
+        active: true
+    });
+                       
+}
+
+function requestLinkFormatToggle(tabs) {
+
+    if (!(tabs === undefined || tabs.length == 0)) {
+        const activeTab = tabs[0];
+        browser.tabs.sendMessage(
+            activeTab.id, {
+                isQuery: false
+            }
+        ).then(updateIcon).catch(onError);
+    }
+
+}
+
+
+// Update Icon on tab change
 browser.tabs.onActivated.addListener(verifyTabStatus);
 
 
-// On click event
+// Request hide link on click
 browser.browserAction.onClicked.addListener(() => {
     browser.tabs.query({
         currentWindow: true,
