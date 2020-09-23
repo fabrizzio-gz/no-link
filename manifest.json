@@ -1,36 +1,36 @@
 {
 
-  "manifest_version": 2,
-  "name": "No-link",
-  "version": "1.0",
+    "manifest_version": 2,
+    "name": "No-link",
+    "version": "1.0",
 
-  "description": "Erase link formatting.",
+    "description": "Erase link formatting.",
 
-  "icons": {
-    "48": "icons/link-icon.png"
-  },
-
-
-  "permissions": [
-    "tabs"
-  ],
+    "icons": {
+        "48": "icons/link-icon.png"
+    },
 
 
-  "browser_action": {
-    "default_icon": "icons/link-icon.png",
-    "default_title": "No-link"
-  },
+    "permissions": [
+        "tabs"
+    ],
 
 
-  "background": {
-    "scripts": ["background.js"]
-  },
+    "browser_action": {
+        "default_icon": "icons/link-icon.png",
+        "default_title": "No-link"
+    },
+
+
+    "background": {
+        "scripts": ["background.js"]
+    },
     
-  "content_scripts": [
-    {
-        "matches": ["<all_urls>"],   //"http://*/*", "https://*/*"],
-      "js": ["content.js"]
-    }
-  ]
+    "content_scripts": [
+        {
+            "matches": ["<all_urls>"],
+            "js": ["content.js"]
+        }
+    ]
 
 }
