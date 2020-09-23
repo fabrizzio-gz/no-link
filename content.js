@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 // Links formatting state variable
 let hideLinks = false;
@@ -16,7 +16,7 @@ a:visited {
 
 
 let styleSheet = (function () {
-    let style = document.createElement("style");
+    let style = document.createElement('style');
     document.head.appendChild(style);
     return style.sheet;
 })();

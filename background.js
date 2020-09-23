@@ -1,8 +1,23 @@
-const showLinkIcon = {
+const showLinksIconPath = {
+    path: 'icons/link-icon.png'
+};
+const hideLinksIconPath = {
+    path: 'icons/broken-link-icon.png'
 };
 
+
 function onError(error) {
-    browser.browserAction.setIcon({path: "icons/link-icon.png"});
+    browser.browserAction.setIcon(showLinksIconPath);
+}
+
+function updateIcon(response) {
+
+    if (response.hideLinks) {
+        browser.browserAction.setIcon(hideLinksIconPath);
+    } else {
+        browser.browserAction.setIcon(showLinksIconPath);
+    }
+
 }
 
 // Send message to active tabs to activate content JS
@@ -14,11 +29,10 @@ function sendMessageToTabs(tabs) {
         ).then(response => {
         
             if (response.hideLinks) {
-                browser.browserAction.setIcon({path: "icons/broken-link-icon.png"});
+                browser.browserAction.setIcon(hideLinksIconPath);
             } else {
-                browser.browserAction.setIcon({path: "icons/link-icon.png"});
+                browser.browserAction.setIcon(showLinksIconPath);
             }
-
         }).catch(onError);
     }
 }
@@ -34,9 +48,9 @@ function verifyTabStatus(activeInfo) {
     ).then(response => {
         
         if (response.hideLinks) {
-            browser.browserAction.setIcon({path: "icons/broken-link-icon.png"});
+            browser.browserAction.setIcon(hideLinksIconPath);
         } else {
-            browser.browserAction.setIcon({path: "icons/link-icon.png"});
+            browser.browserAction.setIcon(showLinksIconPath);
         }
     }).catch(onError);
 }
