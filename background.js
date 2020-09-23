@@ -21,19 +21,12 @@ function updateIcon(response) {
 }
 
 // Send message to active tabs to activate content JS
-function sendMessageToTabs(tabs) {
+function requestLinkFormatToggle(tabs) {
     for (let tab of tabs) {
         browser.tabs.sendMessage(
             tab.id,
             {isQuery: false}
-        ).then(response => {
-        
-            if (response.hideLinks) {
-                browser.browserAction.setIcon(hideLinksIconPath);
-            } else {
-                browser.browserAction.setIcon(showLinksIconPath);
-            }
-        }).catch(onError);
+        ).then(updateIcon).catch(onError);
     }
 }
 
@@ -45,14 +38,8 @@ function verifyTabStatus(activeInfo) {
         {
             isQuery: true
         }
-    ).then(response => {
-        
-        if (response.hideLinks) {
-            browser.browserAction.setIcon(hideLinksIconPath);
-        } else {
-            browser.browserAction.setIcon(showLinksIconPath);
-        }
-    }).catch(onError);
+    ).then(updateIcon).catch(onError);
+
 }
 
 
@@ -65,5 +52,5 @@ browser.browserAction.onClicked.addListener(() => {
     browser.tabs.query({
         currentWindow: true,
         active: true
-    }).then(sendMessageToTabs).catch(onError);
+    }).then(requestLinkFormatToggle).catch(onError);
 });
