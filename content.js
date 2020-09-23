@@ -1,5 +1,6 @@
 "use strict";
 
+// Links formatting state variable
 let hideLinks = false;
 const hideLinksRule = `
 a,
@@ -14,7 +15,7 @@ a:visited {
 }`;
 
 
-let styleSheet = (function() {
+let styleSheet = (function () {
     let style = document.createElement("style");
     document.head.appendChild(style);
     return style.sheet;
@@ -24,10 +25,14 @@ let styleSheet = (function() {
 // 
 browser.runtime.onMessage.addListener(request => {
 
+    // Do not modify if request is only a query
     if (request.isQuery) {
-        return Promise.resolve({hideLinks});
+        return Promise.resolve({
+            hideLinks
+        });
     }
-    
+
+    // Toggle hide/show link formatting on event
     if (hideLinks) {
         styleSheet.deleteRule(0);
         hideLinks = !hideLinks;
@@ -35,5 +40,10 @@ browser.runtime.onMessage.addListener(request => {
         styleSheet.insertRule(hideLinksRule, 0);
         hideLinks = !hideLinks;
     }
-    return Promise.resolve({hideLinks});
+
+    // Return links state
+    return Promise.resolve({
+        hideLinks
+    });
+
 });
