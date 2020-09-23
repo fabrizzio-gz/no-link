@@ -1,6 +1,6 @@
 "use strict";
 
-let erased = false;
+let hideLinks = false;
 
 var sheet = (function() {
 	// Create the <style> tag
@@ -17,15 +17,15 @@ var sheet = (function() {
 browser.runtime.onMessage.addListener(request => {
     
     if (!request.modify) {
-        return Promise.resolve({erased});
+        return Promise.resolve({hideLinks});
     }
     
-    if (erased) {
+    if (hideLinks) {
         sheet.deleteRule(0);
-        erased = !erased;
+        hideLinks = !hideLinks;
     } else {
         sheet.insertRule("a, a:hover, a:focus, a:active, a:visited {text-decoration: none !important;color: inherit !important;  background-color: inherit !important; border-bottom: initial !important;}", 0);
-        erased = !erased;
+        hideLinks = !hideLinks;
     }
-    return Promise.resolve({erased});
+    return Promise.resolve({hideLinks});
 });

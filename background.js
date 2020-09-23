@@ -11,7 +11,7 @@ function sendMessageToTabs(tabs) {
         {modify: true}
     ).then(response => {
         
-        if (response.erased) {
+        if (response.hideLinks) {
              browser.browserAction.setIcon({path: "icons/broken-link-icon.png"});
         } else {
             browser.browserAction.setIcon({path: "icons/link-icon.png"});
@@ -27,7 +27,7 @@ function verifyTabStatus(activeInfo) {
         {modify: false}
     ).then(response => {
                
-        if (response.erased) {
+        if (response.hideLinks) {
              browser.browserAction.setIcon({path: "icons/broken-link-icon.png"});
         } else {
             browser.browserAction.setIcon({path: "icons/link-icon.png"});
