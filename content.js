@@ -22,9 +22,8 @@ let styleSheet = (function () {
 })();
 
 
-// 
-browser.runtime.onMessage.addListener(request => {
-
+function handleRequest(request) {
+    
     // Do not modify if request is only a query
     if (request.isQuery) {
         return Promise.resolve({
@@ -32,7 +31,7 @@ browser.runtime.onMessage.addListener(request => {
         });
     }
 
-    // Toggle hide/show link formatting on event
+    // Toggle hide/show link formatting
     if (hideLinks) {
         styleSheet.deleteRule(0);
         hideLinks = !hideLinks;
@@ -46,4 +45,7 @@ browser.runtime.onMessage.addListener(request => {
         hideLinks
     });
 
-});
+}
+
+
+browser.runtime.onMessage.addListener(handleRequest);
