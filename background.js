@@ -13,38 +13,33 @@ function onError(error) {
 
 
 function updateIcon(response) {
-
     if (response.hideLinks) {
         browser.browserAction.setIcon(hideLinksIconPath);
     } else {
         browser.browserAction.setIcon(showLinksIconPath);
     }
-
 }
 
 
 function verifyTabStatus(activeInfo) {
-    
     browser.tabs.sendMessage(
         activeInfo.tabId, {
             isQuery: true
         }
     ).then(updateIcon).catch(onError);
-
 }
 
 
-function getActiveTab() {
-
+function activeTabLinkToggle() {
     browser.tabs.query({
         currentWindow: true,
         active: true
-    });
-                       
+    }).then(requestLinkFormatToggle).catch(onError);                
 }
 
-function requestLinkFormatToggle(tabs) {
 
+function requestLinkFormatToggle(tabs) {
+    
     if (!(tabs === undefined || tabs.length == 0)) {
         const activeTab = tabs[0];
         browser.tabs.sendMessage(
@@ -61,10 +56,5 @@ function requestLinkFormatToggle(tabs) {
 browser.tabs.onActivated.addListener(verifyTabStatus);
 
 
-// Request hide link on click
-browser.browserAction.onClicked.addListener(() => {
-    browser.tabs.query({
-        currentWindow: true,
-        active: true
-    }).then(requestLinkFormatToggle).catch(onError);
-});
+// Request toggle link formatting on click
+browser.browserAction.onClicked.addListener(activeTabLinkToggle);
