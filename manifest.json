@@ -4,7 +4,7 @@
     "name": "No-link",
     "version": "1.0",
 
-    "description": "Erase link formatting.",
+    "description": "Hide link formatting.",
 
     "icons": {
         "48": "icons/link-icon.png"
