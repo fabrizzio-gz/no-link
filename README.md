@@ -4,8 +4,7 @@ A Mozilla Firefox extension to hide link's formatting.
 
 ## Installation
 
-Currently only via about:debugging tab on Mozilla Firefox or with the `web-ext` command tool.
-
+From the [Mozilla addons website](https://addons.mozilla.org/en-US/firefox/addon/no-link/).
 ### Running with `web-ext`
 From the extension's directory:
 
